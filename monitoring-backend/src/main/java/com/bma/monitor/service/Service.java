@@ -1,5 +1,7 @@
 package com.bma.monitor.service;
 
+import com.bma.monitor.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -16,14 +18,13 @@ import java.util.List;
         @Index(name = "service_userid_index", columnList = "userid")
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties("hibernateLazyInitializer")
 public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "userid")
-    Long userId;
     String name;
     String url;
     @CreationTimestamp
@@ -32,5 +33,9 @@ public class Service {
 
     @OneToMany(mappedBy = "service")
     List<HealthStatus> health;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid", nullable = false)
+    User user;
 
 }

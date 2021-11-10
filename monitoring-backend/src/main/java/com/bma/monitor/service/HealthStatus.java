@@ -1,5 +1,6 @@
 package com.bma.monitor.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Entity(name = "health")
 @Table(name = "health")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties("hibernateLazyInitializer")
 public class HealthStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
