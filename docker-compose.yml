@@ -14,6 +14,16 @@ services:
     environment:
       SPRING_ACTIVE_PROFILE: default
 
+  monitoring-app-frontend:
+    container_name: monitoring-app-frontend
+    build:
+      context: ./monitoring-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - monitoring-network
+
 networks:
   monitoring-network:
     driver: bridge
