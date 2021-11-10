@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  monitoring-app-backend:
+    container_name: monitoring-app-backend
+    build:
+      context: ./monitoring-backend
+      dockerfile: Dockerfile 
+    ports:
+      - "8080:8080"
+    networks:
+      - monitoring-network
+    environment:
+      SPRING_ACTIVE_PROFILE: default
+
+networks:
+  monitoring-network:
+    driver: bridge
