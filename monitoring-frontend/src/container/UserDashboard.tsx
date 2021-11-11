@@ -66,8 +66,13 @@ const UserDashboardPage: FunctionComponent = () => {
     const createService = async (webServiceForm: WebServiceForm) => {
         console.log(webServiceForm);
         let webService:WebService = await userService.createService(webServiceForm);
+        let healthHistoryService = new HealthHistoryServiceV1(webService);
+        let healthHistory = await healthHistoryService.fetchHealthHistory()
+
+        webService.healthHistory = healthHistory.healthhistory;
+
         if (webService) {
-            setServices([...services, webService])
+            setServices([...services, webService]);
             return true;
         }
 
