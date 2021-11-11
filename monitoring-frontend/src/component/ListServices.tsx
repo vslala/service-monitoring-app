@@ -23,16 +23,22 @@ const ListServices: FunctionComponent<Props> = (props: Props) => {
                             <div className="fw-bold">{service.name}</div>
                             {service.url}
                         </div>
-                        <div className={"pull-right"}>
-                            <Badge bg={service.healthStatus === "OK" ? "success" : "danger"} pill style={{margin: "5px"}}>
-                                {service.healthStatus}
-                            </Badge>
-                            <Button variant={"link"} onClick={() => handleDelete(service.id)}>
-                                <Badge bg={"dark"} pill>
-                                    X
-                                </Badge>
-                            </Button>
-                        </div>
+
+                        {
+                            service.healthHistory.length > 0 ?
+                                <div className={"pull-right"}>
+                                    <Badge bg={service.healthHistory[0].status === "OK" ? "success" : "danger"} pill style={{margin: "5px"}}>
+                                        {service.healthHistory[0].status}
+                                    </Badge>
+                                    <Button variant={"link"} onClick={() => handleDelete(service.id)}>
+                                        <Badge bg={"dark"} pill>
+                                            X
+                                        </Badge>
+                                    </Button>
+                                </div>
+                                : <></>
+                        }
+
                     </ListGroup.Item>
                 ))
             }
