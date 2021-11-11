@@ -10,18 +10,18 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
-@Entity(name = "health")
-@Table(name = "health")
+@Entity(name = "healthhistory")
+@Table(name = "healthhistory")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonIgnoreProperties("hibernateLazyInitializer")
-public class HealthStatus {
+public class HealthHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String status;
     @CreationTimestamp
     @Column(name = "created")
-    Timestamp createdAt;
+    Timestamp created;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serviceid", nullable = false)

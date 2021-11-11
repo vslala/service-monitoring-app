@@ -1,6 +1,7 @@
 package com.bma.monitor.user;
 
 import com.bma.monitor.service.Service;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     Long id;
+    @JsonIgnore
     String password;
 
     @OneToMany(mappedBy = "user")

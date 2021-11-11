@@ -29,10 +29,10 @@ public class Service {
     String url;
     @CreationTimestamp
     @Column(name = "created")
-    Timestamp createdAt;
+    Timestamp created;
 
     @OneToMany(mappedBy = "service")
-    List<HealthStatus> health;
+    List<HealthHistory> healthHistory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", nullable = false)
