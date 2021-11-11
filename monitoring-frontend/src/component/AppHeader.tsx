@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const AppHeader: FunctionComponent = () => {
@@ -14,6 +14,11 @@ const AppHeader: FunctionComponent = () => {
                         <Nav.Link>Home</Nav.Link>
                     </Link>
                 </Nav>
+                <Navbar.Collapse className="justify-content-end">
+                    <Button variant={"light"} onClick={() => localStorage.removeItem("user")}>
+                        Logout
+                    </Button>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     </>
