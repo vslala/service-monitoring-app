@@ -3,8 +3,7 @@ package com.bma.monitor.user;
 import com.bma.monitor.service.ServiceInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -13,6 +12,9 @@ import java.util.List;
 @Data
 @Entity(name = "user")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class User {
     String username;

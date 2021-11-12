@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(value = "http://localhost:3000", exposedHeaders = {"Location"})
 @RepositoryRestResource(collectionResourceRel = "healthhistory", path = "health-history")
 public interface HealthHistoryRepository extends PagingAndSortingRepository<HealthHistory, Long> {
-    Page<HealthHistory> findByServiceInfo(@Param("serviceInfo") ServiceInfo serviceInfo, Pageable pageable);
+    Page<HealthHistory> findByServiceInfo(@Param("service") ServiceInfo serviceInfo, Pageable pageable);
 }
