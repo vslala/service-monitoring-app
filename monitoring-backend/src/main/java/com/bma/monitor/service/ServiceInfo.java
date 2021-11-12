@@ -33,7 +33,7 @@ public class ServiceInfo {
     @Column(name = "created")
     Timestamp created;
 
-    @OneToMany(mappedBy = "serviceInfo")
+    @OneToMany(mappedBy = "serviceInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     List<HealthHistory> healthHistory;
 
     @ManyToOne(fetch = FetchType.LAZY)
