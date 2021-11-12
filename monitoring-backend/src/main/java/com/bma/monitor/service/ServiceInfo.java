@@ -11,8 +11,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
-@Entity(name = "service")
-@Table(name = "service", indexes = {
+@Entity(name = "serviceInfo")
+@Table(name = "serviceinfo", indexes = {
         @Index(name = "service_id_index", columnList = "id"),
         @Index(name = "service_userid_index", columnList = "userid")
 })
@@ -33,7 +33,7 @@ public class ServiceInfo {
     @Column(name = "created")
     Timestamp created;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "serviceInfo")
     List<HealthHistory> healthHistory;
 
     @ManyToOne(fetch = FetchType.LAZY)
