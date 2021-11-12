@@ -92,6 +92,15 @@ class UserServiceV1 {
 
         throw Error("Cannot retrieve logged in user. Status: " + userResponse.status);
     }
+
+    async deleteService(serviceId: number):Promise<boolean> {
+        let response = await request.delete(`/services/${serviceId}`);
+        if (response.status === 204) {
+            return true;
+        }
+
+        throw Error("Not able to delete the service. Status: " + response.status);
+    }
 }
 
 export default UserServiceV1;

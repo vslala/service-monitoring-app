@@ -1,20 +1,21 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
-import UserServiceV1 from "../service/user/UserServiceV1";
 import WebService from "../model/WebService";
-import HealthHistoryServiceV1 from "../service/healthstatus/HealthHistoryServiceV1";
 import {Navigate} from "react-router-dom";
 import WebServiceForm from "../model/WebServiceForm";
 import AppHeader from "../component/AppHeader";
 import {Col, Container, Row} from "react-bootstrap";
 import AddNewService from "../component/AddNewService";
 import ListServices from "../component/ListServices";
+import ServiceFactory from "../service/ServiceFactory";
+import UserServiceV1 from "../service/user/UserServiceV1";
 
 /**
  *
  * @constructor Varun Shrivastava
  */
 const UserDashboardPage: FunctionComponent = () => {
-    const userService = new UserServiceV1();
+
+    const userService:UserServiceV1 = ServiceFactory.getUserService();
 
     const [services, setServices] = useState<WebService[]>([]);
 
@@ -23,7 +24,7 @@ const UserDashboardPage: FunctionComponent = () => {
      * @param services
      */
     async function updateServiceHealthStatus() {
-        let services = await userService.getAllServices()
+        let services = await userService.getAllServices();
         console.log("Update service status: ", services);
         setServices(services);
     }
@@ -43,8 +44,11 @@ const UserDashboardPage: FunctionComponent = () => {
      * delete the user created service
      * @param id service id
      */
-    const deleteService = (id: number) => {
-        setServices(services.filter(service => service.id !== id));
+    const deleteService = async (id: number) => {
+        let deleted = await userService.deleteService(id);
+        if (deleted) {
+            setServices(services.filter(service => service.id !== id));
+        }
     }
 
     /**
@@ -54,10 +58,6 @@ const UserDashboardPage: FunctionComponent = () => {
     const createService = async (webServiceForm: WebServiceForm) => {
         console.log(webServiceForm);
         let webService: WebService = await userService.createService(webServiceForm);
-        let healthHistoryService = new HealthHistoryServiceV1(webService);
-        let healthHistory = await healthHistoryService.fetchHealthHistory()
-
-        webService.healthHistory = healthHistory.healthhistory;
 
         if (webService) {
             setServices([...services, webService]);

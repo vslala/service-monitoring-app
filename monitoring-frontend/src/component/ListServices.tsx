@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {Badge, Button, ListGroup} from "react-bootstrap";
 import WebService from "../model/WebService";
 import {Link} from "react-router-dom";
@@ -20,9 +20,8 @@ const ServiceHealthBadge: FunctionComponent<HealthProps> = (props: HealthProps) 
     const [healthStatus, setHealthStatus] = useState<HealthStatus>({status: "Loading...", _links: [], created: ""});
 
     const updateHealthHistory = async () => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        let healthHistoryService = new HealthHistoryServiceV1(props.service);
-        let healthHistory = await healthHistoryService.fetchHealthHistory(1, 1, "created,desc");
+        let healthHistoryService = new HealthHistoryServiceV1();
+        let healthHistory = await healthHistoryService.fetchHealthHistory(props.service,1, 1, "created,desc");
         if (healthHistory.healthhistory.length > 0) {
             console.log("Health Status: ", healthStatus);
             setHealthStatus(healthHistory.healthhistory[0]);
@@ -30,14 +29,14 @@ const ServiceHealthBadge: FunctionComponent<HealthProps> = (props: HealthProps) 
     }
 
     useEffect(() => {
+        // call immediately at page load
         updateHealthHistory();
+        // and schedule for regular update
         intervalIdRef.current = setInterval(() => {
             updateHealthHistory();
         }, 5000);
-    }, []);
 
-    useLayoutEffect(() => {
-        clearInterval(intervalIdRef.current);
+        return () => clearInterval(intervalIdRef.current);
     }, []);
 
     return <>
@@ -64,7 +63,7 @@ const ListServices: FunctionComponent<Props> = (props: Props) => {
                     >
                         <div className="ms-2 me-auto">
                             <div className="fw-bold">
-                                <Link to={`/dashboard/service?url=${service.url}`}>{service.name}</Link>
+                                <Link to={`/dashboard/service/${service.id}`}>{service.name}</Link>
                             </div>
                             {service.url}
                         </div>
