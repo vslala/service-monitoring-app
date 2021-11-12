@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin(value = "http://localhost:3000", exposedHeaders = {"Location"})
 @RepositoryRestResource(collectionResourceRel = "services", path = "services")
-public interface ServiceRepository extends PagingAndSortingRepository<Service, Long> {
-    Service findByUserId(Long userId);
-    Service findByName(String name);
+public interface ServiceRepository extends PagingAndSortingRepository<ServiceInfo, Long> {
+    ServiceInfo findByUserId(Long userId);
+    ServiceInfo findByName(String name);
 }

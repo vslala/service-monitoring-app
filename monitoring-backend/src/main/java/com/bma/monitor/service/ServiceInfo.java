@@ -2,8 +2,7 @@ package com.bma.monitor.service;
 
 import com.bma.monitor.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,7 +18,10 @@ import java.util.List;
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonIgnoreProperties("hibernateLazyInitializer")
-public class Service {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ServiceInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

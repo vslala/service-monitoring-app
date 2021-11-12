@@ -1,6 +1,6 @@
 package com.bma.monitor.user;
 
-import com.bma.monitor.service.Service;
+import com.bma.monitor.service.ServiceInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
@@ -23,5 +23,5 @@ public class User {
     String password;
 
     @OneToMany(mappedBy = "user")
-    List<Service> services;
+    List<ServiceInfo> serviceInfos;
 }

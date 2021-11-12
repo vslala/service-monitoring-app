@@ -1,8 +1,7 @@
 package com.bma.monitor.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,6 +12,9 @@ import java.sql.Timestamp;
 @Entity(name = "healthhistory")
 @Table(name = "healthhistory")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class HealthHistory {
     @Id
@@ -25,6 +27,6 @@ public class HealthHistory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serviceid", nullable = false)
-    Service service;
+    ServiceInfo serviceInfo;
 
 }
