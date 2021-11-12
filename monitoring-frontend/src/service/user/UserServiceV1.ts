@@ -70,7 +70,7 @@ class UserServiceV1 {
      */
     async getAllServices():Promise<WebService[]> {
         let user:User = await this.getLoggedInUser();
-        let response = await request.get(`${user._links.services.href}`);
+        let response = await request.get(`${user._links.serviceInfos.href}`);
 
         if (response.status === 200) {
             let webServices:WebServices = response.data._embedded as WebServices;

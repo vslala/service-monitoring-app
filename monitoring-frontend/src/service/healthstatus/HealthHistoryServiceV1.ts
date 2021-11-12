@@ -19,8 +19,9 @@ class HealthHistoryServiceV1 {
      * @param sort
      */
     async fetchHealthHistory(size:number = 20, page:number = 1, sort:string = "created,asc"): Promise<HealthHistory> {
-        let response = await request.get(`/health-history/search/findByService?service=/${this.service.id}&page=${page}&size=${size}&sort=${sort}`)
+        let response = await request.get(`/health-history/search/findByServiceInfo?service=/${this.service.id}&page=${page}&size=${size}&sort=${sort}`)
         if (response.status === 200) {
+            console.log("Health History: ", response.data._embedded);
             return response.data._embedded as HealthHistory;
         }
 

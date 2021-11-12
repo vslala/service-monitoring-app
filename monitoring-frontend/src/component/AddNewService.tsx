@@ -37,7 +37,7 @@ const AddNewService: FunctionComponent<Props> = (props:Props) => {
             <Modal.Body>
                 <Form onSubmit={handleFormSubmit}>
                     <Form.Group as={Row} className="mb-1">
-                        <Form.Control type={"text"} placeholder={"healthstatus Name"} value={webServiceForm.name}
+                        <Form.Control type={"text"} placeholder={"Service Name"} value={webServiceForm.name}
                                       onChange={updateWebServiceForm("name")}/>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-1">

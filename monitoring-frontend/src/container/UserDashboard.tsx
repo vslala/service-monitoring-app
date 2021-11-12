@@ -22,29 +22,17 @@ const UserDashboardPage: FunctionComponent = () => {
      * iterates over each service and fetches the latest health status for each
      * @param services
      */
-    async function updateServiceHealthStatus(services: WebService[]) {
-        let servicesWithStatus:WebService[] = [];
-
-        for (let i = 0; i < services.length; i++) {
-            let healthHistoryService = new HealthHistoryServiceV1(services[i]);
-            let healthHistory = await healthHistoryService.fetchHealthHistory(2, 1, "created,desc");
-            servicesWithStatus.push({...services[i], healthHistory: healthHistory.healthhistory});
-        }
-
-        console.log(servicesWithStatus);
-        setServices(servicesWithStatus);
+    async function updateServiceHealthStatus() {
+        let services = await userService.getAllServices()
+        console.log("Update service status: ", services);
+        setServices(services);
     }
 
     /**
      * load all the user services when component mounts
      */
     useEffect(() => {
-        userService.getAllServices()
-            .then(services => {
-                console.log(services);
-                setServices(services);
-                updateServiceHealthStatus(services);
-            });
+        updateServiceHealthStatus();
     }, [])
 
     if (localStorage.getItem("user") === null) {
@@ -65,7 +53,7 @@ const UserDashboardPage: FunctionComponent = () => {
      */
     const createService = async (webServiceForm: WebServiceForm) => {
         console.log(webServiceForm);
-        let webService:WebService = await userService.createService(webServiceForm);
+        let webService: WebService = await userService.createService(webServiceForm);
         let healthHistoryService = new HealthHistoryServiceV1(webService);
         let healthHistory = await healthHistoryService.fetchHealthHistory()
 
@@ -84,8 +72,8 @@ const UserDashboardPage: FunctionComponent = () => {
         <AppHeader/>
         <Container>
             <Row>
-                <Col style={{marginTop: "10px", marginBottom: "10px"}} >
-                    <AddNewService createService={createService} />
+                <Col style={{marginTop: "10px", marginBottom: "10px"}}>
+                    <AddNewService createService={createService}/>
                 </Col>
             </Row>
             <Row>

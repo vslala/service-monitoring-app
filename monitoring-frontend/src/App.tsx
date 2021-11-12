@@ -13,6 +13,7 @@ const App: FunctionComponent = () => {
                 <Route path="/" element={<Navigate replace to="/login"/>}/>
                 <Route path={"/login"} element={<LoginPage/>}/>
                 <Route path={"/dashboard"} element={<UserDashboardPage/>}/>
+                <Route path={"/dashboard/service/:url"} element={<UserDashboardPage/>}/>
                 <Route path={"/register"} element={<RegistrationPage/>}/>
             </Routes>
         </Router>
