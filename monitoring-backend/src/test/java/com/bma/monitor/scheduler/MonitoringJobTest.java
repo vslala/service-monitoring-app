@@ -26,6 +26,10 @@ class MonitoringJobTest {
 
     @BeforeEach
     void setUp() {
+        // mocks
+        serviceRepository = mock(ServiceRepository.class);
+        healthHistoryRepository = mock(HealthHistoryRepository.class);
+
         webClientResponseSpec = mock(WebClient.ResponseSpec.class);
         when(webClientResponseSpec.toEntity(String.class)).thenReturn(Mono.just(ResponseEntity.ok("")));
 
@@ -40,8 +44,6 @@ class MonitoringJobTest {
                 .thenReturn(HealthHistory.builder().build());
 
         // inject
-        serviceRepository = mock(ServiceRepository.class);
-        healthHistoryRepository = mock(HealthHistoryRepository.class);
         monitoringJob = new MonitoringJob(webClient, serviceRepository, healthHistoryRepository);
     }
 
