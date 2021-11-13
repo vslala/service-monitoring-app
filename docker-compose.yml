@@ -2,26 +2,29 @@ version: "3"
 
 services:
 
+  db:
+    image: mysql
+    container_name: mysqldb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: monitoringapp
+      MYSQL_ROOT_PASSWORD: monitoring-app-db-password
+    networks:
+      - monitoring-network
+
   monitoring-app-backend:
     container_name: monitoring-app-backend
     build:
       context: ./monitoring-backend
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     networks:
       - monitoring-network
     environment:
-      SPRING_ACTIVE_PROFILE: default
-
-
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
+      SPRING_ACTIVE_PROFILE: production
       MYSQL_ROOT_PASSWORD: monitoring-app-db-password
-
 
   monitoring-app-frontend:
     container_name: monitoring-app-frontend

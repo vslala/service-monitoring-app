@@ -21,7 +21,7 @@ const ServiceHealthBadge: FunctionComponent<HealthProps> = (props: HealthProps) 
 
     const updateHealthHistory = async () => {
         let healthHistoryService = new HealthHistoryServiceV1();
-        let healthHistory = await healthHistoryService.fetchHealthHistory(props.service,1, 1, "created,desc");
+        let healthHistory = await healthHistoryService.fetchHealthHistory(props.service,1, 0, "created,desc");
         if (healthHistory.healthhistory.length > 0) {
             console.log("Health Status: ", healthStatus);
             setHealthStatus(healthHistory.healthhistory[0]);

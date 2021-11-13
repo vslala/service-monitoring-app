@@ -1,8 +1,13 @@
 import React, {FunctionComponent} from "react";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const AppHeader: FunctionComponent = () => {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        navigate("/");
+    }
     return <>
         <Navbar bg="light" variant="light">
             <Container>
@@ -10,12 +15,14 @@ const AppHeader: FunctionComponent = () => {
                     <Navbar.Brand>Navbar</Navbar.Brand>
                 </Link>
                 <Nav className="me-auto">
-                    <Link to={"/dashboard"} style={{textDecoration: "none"}}>
-                        <Nav.Link>Home</Nav.Link>
-                    </Link>
+                    <Nav.Link>
+                        <Link to={"/dashboard"} style={{textDecoration: "none"}}>
+                            Home
+                        </Link>
+                    </Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
-                    <Button variant={"light"} onClick={() => localStorage.removeItem("user")}>
+                    <Button variant={"light"} onClick={handleLogout}>
                         Logout
                     </Button>
                 </Navbar.Collapse>
