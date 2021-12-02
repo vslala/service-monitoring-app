@@ -6,4 +6,4 @@ cd monitoring-frontend
 npm run build
 
 cd ..
-docker-compose up
+docker-compose up --build --force-recreate --no-deps
